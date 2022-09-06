@@ -35,7 +35,7 @@ const getBlogs = async function (req, res) {
     // let subcategory = req.query.subcategory
     // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
     // let data = await createBloggerModel.find({ isDeleted: false, isPublished: true}[ {authorId: authorId}|| {category: category}||{ tags: tag}|| {subcategory: subcategory }]).populate("authorId")
-    let data = await createBloggerModel.find({ $and: [data1, { isDeleted: false}, {isPublished: false }] }).populate("authorId")
+    let data = await createBloggerModel.find({ $and: [data1, { isDeleted: false}, {isPublished: true }] }).populate("authorId")
     return res.status(200).send(data)
 
 }
@@ -57,7 +57,7 @@ const updateData = async function (req, res) {
 const deleteblog= async function(req , res){
     try{
        let id = req.params.blogId
-       
+
        if (!id){
         return res.status(404).send({status:false,msg:"id not found"})
        }
