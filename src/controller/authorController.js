@@ -3,6 +3,7 @@ const validator = require("validator")
 
 const createAuthor = async function (req, res) {
     let data = req.body;
+    
     let email = data.email;
     if(!validator.isEmail(email)){
         return res.status(400).send({status:false, msg:"invalid email Id"})

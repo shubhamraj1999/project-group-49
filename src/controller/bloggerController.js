@@ -57,6 +57,7 @@ const updateData = async function (req, res) {
 const deleteblog= async function(req , res){
     try{
        let id = req.params.blogId
+       
        if (!id){
         return res.status(404).send({status:false,msg:"id not found"})
        }
