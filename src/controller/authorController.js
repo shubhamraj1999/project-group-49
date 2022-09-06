@@ -1,5 +1,6 @@
 const createAuthorModel = require("../model/authorModel.js")
 const validator = require("validator")
+
 const createAuthor = async function (req, res) {
     let data = req.body;
     let email = data.email;
@@ -13,11 +14,6 @@ let validEmail = await createAuthorModel.findOne({email:email})
     let savedData = await createAuthorModel.create(data)
         res.send({ msg: savedData })
     
-
-
-    // if(!data.email){
-    //     res.status().send({status:false, msg:"Please use a valid emailId"})
-    // }
 }
 
 module.exports.createAuthor = createAuthor
