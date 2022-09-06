@@ -4,15 +4,18 @@ const router = express.Router();
 const authorController = require("../controller/authorController")
 const bloggerController = require("../controller/bloggerController")
 
-//create author api
+////////////////////////create author api/////////////////////////////////
 router.post("/authors" , authorController.createAuthor);
-//create blog
+/////////////////////////create blog/////////////////////////////////////
 router.post("/blog",bloggerController.createBlog) 
-//get blogs 
+/////////////////////////get blogs //////////////////////////////////////
  router.get("/getBlogs",bloggerController.getBlogs)
- router.put("/blogs/:blogId",bloggerController.updateData)
+ ////////////////////////update blog/////////////////////////////////////
+ router.put("/blogs/:blogId",bloggerController.updateBlog)
+ ////////////////////////delete blog////////////////////////////////////
  router.delete("/blogs/:blogId",bloggerController.deleteblog)
- 
+ router.delete("/blogs/:blogId",bloggerController.deletebyquery)
+ ///////////////////////////////////////////////////////////////////////
 module.exports = router;
 
 

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require("moment")
 const ObjectId = mongoose.Schema.Types.ObjectId
-const date = moment().format("yyyy-mm-dd h:mm:ss")
 
 const blogSchema = new mongoose.Schema({
     title: {
@@ -19,7 +17,7 @@ const blogSchema = new mongoose.Schema({
         required: true,
         ref: "AuthorBlogger"
     },
-    
+
 
     tags: [String],
 
@@ -37,15 +35,14 @@ const blogSchema = new mongoose.Schema({
     //  createdAt, updatedAt, deletedAt: {when the document is deleted},
 
     isDeleted: {
-              // deletedAt:moment().format("DD-MM-YYYY" ),
+              
         deletedAt: Date.now(),
         type: Boolean,
         default: false
     },
 
     isPublished: {
-        //date:moment().format("yyyy-mm-dd h:mm:ss"),
-        //publishedAt:moment().format("DD-MM-YYYY"),
+       
         type: Boolean,
         default: false
     },
