@@ -70,6 +70,7 @@ const deleteblog = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+//raza
 // my mame is faheem
 const deletebyquery = async function (req, res) {
     data = req.query
