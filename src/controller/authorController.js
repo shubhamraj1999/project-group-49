@@ -1,10 +1,14 @@
 const authorModel = require("../model/authorModel.js");
+
 const jwt = require("jsonwebtoken");
+
 const matchPass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
 const checkName=/^[a-z\s]+$/i
+
 const emailMatch = /[a-zA-Z0-9_\-\.]+[@][a-z]+[\.][a-z]{2,3}/
 
-
+//==========================Creeate Author=======================================///
 
 const createAuthor = async function (req, res) {
     try {
@@ -24,14 +28,14 @@ const createAuthor = async function (req, res) {
         data.lname=Lname
 
         if (!title || title == "") return res.status(400).send({ status: false, msg: "please use title" })
-        if (title!=="Mr" && title!=="Mrs" && title!=="Miss") return res.status(404).send({status:false, msg:"please use title correctly"})
+        if (title!=="Mr" && title!=="Mrs" && title!=="Miss") return res.status(400).send({status:false, msg:"please use title correctly"})
 
         if (!email) return res.status(400).send({ status: false, msg: "please use eamilId" })
         let validEmail = await authorModel.findOne({ email: email })
         if (validEmail) return res.status(400).send("This email Id is already registered")
         if (!email.match(emailMatch)) return res.status(400).send({ status: false, msg: "please use valid emailId" })
 
-        if (!password) return res.status(404).send({ status: false, msg: "please use password" })
+        if (!password) return res.status(400).send({ status: false, msg: "please use password to create author" })
         if (password.length <= 6) return res.status(400).send({ status: false, msg: "please use more than six characters" })
         if (!matchPass.test(password)) return res.status(400).send({ status: false, msg: "please use special character  to make strong password" })
 
@@ -42,6 +46,9 @@ const createAuthor = async function (req, res) {
     }
 
 }
+
+//===================================Login Author ===========================//
+
 const loginAuthor = async function (req, res) {
     try {
         let data = req.body
@@ -50,7 +57,7 @@ const loginAuthor = async function (req, res) {
         if(!email || !password) return res.status(400).send({status:false, msg:"please use email or password to login"})
 
         let author = await authorModel.findOne(data)
-        if(!author) return res.status(404).send({status:false, msg:"please use correct email or password"})
+        if(!author) return res.status(404).send({status:false, msg:"Author not found, please use correct email or password"})
         let token = jwt.sign(
             {
                 authorId: author._id.toString(),
@@ -59,7 +66,6 @@ const loginAuthor = async function (req, res) {
             },
             "mini-project"
         );
-        //res.setHeader("x-api-key", token);
         return res.status(201).send({ status: true, msg: "token generated successfully", data:{token:token }})
     }
     catch (error) {
